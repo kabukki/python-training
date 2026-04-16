@@ -26,11 +26,11 @@ def main(samples: list[Sample]):
         while j < len(previous.stack) and j < len(current.stack) and previous.stack[j] == current.stack[j]:
             j += 1
 
-        for k in reversed(range(j, len(previous.stack))):
-            events.append(Event(current.ts, EventType.END, previous.stack[k]))
+        for fn in reversed(previous.stack[j:]):
+            events.append(Event(current.ts, EventType.END, fn))
 
-        for k in range(j, len(current.stack)):
-            events.append(Event(current.ts, EventType.START, current.stack[k]))
+        for fn in current.stack[j:]:
+            events.append(Event(current.ts, EventType.START, fn))
 
     return events
 
